@@ -168,7 +168,7 @@ def print_danfe(inv):
 
 
 def add_backgound_to_logo_image(company):
-    logo = company.logo
+    logo = company.nfe_logo or company.logo
     logo_image = Image.open(StringIO(logo.decode('base64')))
     image_path = os.path.join(mount_path_nfe(company), 'company_logo.png')
 
