@@ -20,22 +20,23 @@
 import os
 
 from openerp.tools import config
+from openerp.tools.translate import _
 from openerp.exceptions import RedirectWarning
 from openerp.addons.l10n_br_base.tools.misc import punctuation_rm
 
 
 def mount_path_nfe(company, document='nfe'):
     db_name = company._cr.dbname
-    cnpj =  punctuation_rm(company.cnpj_cpf)
-    data_dir = config['data_dir']
+    cnpj = punctuation_rm(company.cnpj_cpf)
 
-    nfe_path = '/'.join([data_dir, document, db_name, cnpj])
+    filestore = config.filestore(db_name)
+    nfe_path = '/'.join([filestore, 'PySPED', document, cnpj])
     if not os.path.exists(nfe_path):
         try:
             os.makedirs(nfe_path)
         except OSError:
             raise RedirectWarning(
                 _(u'Erro!'),
-                _(u"""Verifique as permissões de escrita 
+                _(u"""Verifique as permissões de escrita
                     e o caminho da pasta"""))
     return nfe_path
