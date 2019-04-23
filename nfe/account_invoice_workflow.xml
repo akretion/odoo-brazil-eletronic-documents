@@ -15,6 +15,14 @@
             <field name="action">action_invoice_send_nfe()</field>
             <field name="kind">function</field>
         </record>
+        
+        <record id="act_sefaz_denied" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">sefaz_transmit</field>
+            <field name="action">action_cancel()
+write({'state':'sefaz_denied'})</field>
+            <field name="kind">function</field>
+        </record>
 
         <record id="l10n_br_account.act_sefaz_exception" model="workflow.activity">
             <field name="wkf_id" ref="account.wkf"/>
@@ -27,6 +35,13 @@
             <field name="act_from" ref="act_sefaz_transmit"/>
             <field name="act_to" ref="l10n_br_account.act_sefaz_exception"/>
             <field name="condition">(state=='sefaz_exception')</field>
+            <field name="signal" eval="False"/>
+        </record>
+        
+        <record id="tras_sefaz_transmit_denied" model="workflow.transition">
+            <field name="act_from" ref="act_sefaz_denied"/>
+            <field name="act_to" ref="l10n_br_account.act_sefaz_exception"/>
+            <field name="condition">(state=='sefaz_denied')</field>
             <field name="signal" eval="False"/>
         </record>
 
