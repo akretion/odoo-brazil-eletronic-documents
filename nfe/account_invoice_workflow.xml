@@ -19,6 +19,7 @@
         <record id="act_sefaz_denied" model="workflow.activity">
             <field name="wkf_id" ref="account.wkf"/>
             <field name="name">sefaz_denied</field>
+            <field name="flow_stop">True</field>
             <field name="action">action_cancel()
 write({'state':'sefaz_denied'})</field>
             <field name="kind">function</field>
